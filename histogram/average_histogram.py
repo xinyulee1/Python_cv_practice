@@ -58,5 +58,5 @@ def main():
     return 0
 
 if __name__ == '__main__':
-    histogram_my()
+    average_histogram_my()
     cv2.waitKey(0)
