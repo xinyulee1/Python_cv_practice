@@ -26,20 +26,22 @@ def image_convolution(image,kernel):
 def gauss_mask(sigma):
     mask_height = mask_width = sigma*2+1
     mask = np.zeros((mask_height, mask_width))
+    sum = 0 
     for i in range(-sigma,sigma+1):
         for j in range(-sigma,sigma+1):
             mask[i+sigma][j+sigma] = np.exp(-0.5 * (i ** 2+ j ** 2) / sigma ** 2)
-    return mask
+            sum += mask[i+sigma][j+sigma]
+    return mask/sum
 if __name__ == "__main__":
-    # image = cv2.imread("dongcha.jpg", 0)
-    # image = cv2.resize(image,(512,512))
-    # kernel = gauss_mask(1)
-    # result = np.zeros(image.shape)
-    # result = image_convolution(image = image,kernel = kernel)
-    # print(result)
-    # result=result.astype(np.uint8)
-    # cv2.imshow("result", result)
-    # cv2.imshow("orignal", image)
-    print(gauss_mask(0.8))
+    image = cv2.imread("dongcha.jpg", 0)
+    image = cv2.resize(image,(512,512))
+    kernel = gauss_mask(1)
+    result = np.zeros(image.shape)
+    result = image_convolution(image = image,kernel = kernel)
+    print(result)
+    result=result.astype(np.uint8)
+    cv2.imshow("result", result)
+    cv2.imshow("orignal", image)
+    print(gauss_mask(1))
     cv2.waitKey(0)
 
