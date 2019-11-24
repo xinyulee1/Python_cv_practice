@@ -1,15 +1,9 @@
 import cv2
 import numpy as np
 
-
-clicked = False
-def onMouse(event, x, y, flags, param):
-    global clicked
-    if event == cv2.EVENT_LBUTTONUP:
-        clicked = True
-
+#此为编写颜色空间转换的测试函数
 def rgb_read():
-    image_rgb = cv2.imread("joker.jpg")
+    image_rgb = cv2.imread("cubes.jpg")
     image_rgb = cv2.resize(image_rgb,(800,500))
     image_rgb=cv2.GaussianBlur(image_rgb, (15, 15), 0)
     # image_hsv = cv2.cvtColor(image_rgb,cv2.COLOR_BGR2HSV)#官方库处理代码
@@ -20,7 +14,9 @@ def rgb_read():
     print(image_hsv)
     cv2.imshow("src", image_rgb)
     cv2.imshow("hsv", image_hsv)
-def rgb2hsv(r, g, b):
+
+    #颜色空间转换函数
+    def rgb2hsv(r, g, b):
     r, g, b = r/255.0, g/255.0, b/255.0
     mx = max(r, g, b)
     mn = min(r, g, b)
@@ -42,7 +38,7 @@ def rgb2hsv(r, g, b):
         s = m / mx *255
     v = mx * 255
     return h, s, v
-
+#通过滚动条调节上下阈值选出相应颜色
 def threshold_my():
     image_rgb = cv2.imread("cubes.jpg")
     image_rgb = cv2.resize(image_rgb,(800,500))
@@ -71,6 +67,7 @@ def threshold_my():
         ceil = np.array([hmax, smax, vmax])
         mask = cv2.inRange(image_hsv, floor, ceil)
         cv2.imshow("result", mask)
+        #按下按键q即可退出程序
         if cv2.waitKey(10) & 0xFF == ord('q'):
             break
     cv2.destroyAllWindows()
