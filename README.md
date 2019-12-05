@@ -1,2 +1,2 @@
 # Python_cv_practice
-Do some practice  In machine vision by using python.
+Those are school assignment for digital image processing.
